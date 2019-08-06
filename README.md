@@ -5,7 +5,7 @@ Hosted at [https://omnistack-tindev-backend.herokuapp.com/](https://omnistack-ti
 ## Endpoints
 
 ### GET on /
-Returns a quote:
+Returns a message:
 ```json
 {
   "message": "John is a man of focus... are you, my friend, a man of focus?"
