@@ -6,7 +6,8 @@
   "author": "Bruno Drugowick <bruno.drugowick@gmail.com>",
   "license": "MIT",
   "scripts": {
-    "dev": "nodemon src/server.js"
+    "dev": "nodemon src/server.js",
+    "start": "node src/server.js"
   },
   "dependencies": {
     "cors": "^2.8.5",
