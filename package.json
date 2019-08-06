@@ -1,0 +1,8 @@
+{
+  "name": "omnistack-tindev-backend",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "git@github.com:brunodrugowick/omnistack-tindev-backend.git",
+  "author": "Bruno Drugowick <bruno.drugowick@gmail.com>",
+  "license": "MIT"
+}
