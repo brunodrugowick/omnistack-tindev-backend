@@ -1,8 +1,19 @@
 {
   "name": "omnistack-tindev-backend",
   "version": "1.0.0",
-  "main": "index.js",
+  "main": "src/server.js",
   "repository": "git@github.com:brunodrugowick/omnistack-tindev-backend.git",
   "author": "Bruno Drugowick <bruno.drugowick@gmail.com>",
-  "license": "MIT"
+  "license": "MIT",
+  "scripts": {
+    "dev": "nodemon src/server.js"
+  },
+  "dependencies": {
+    "cors": "^2.8.5",
+    "dotenv": "^8.0.0",
+    "express": "^4.17.1"
+  },
+  "devDependencies": {
+    "nodemon": "^1.19.1"
+  }
 }
