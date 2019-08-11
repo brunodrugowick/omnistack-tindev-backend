@@ -1,5 +1,5 @@
 const axios = require('axios');
-const Developer = require('../models/Developer')
+const Developer = require('../models/Developer');
 
 module.exports = {
     async index(req, res) {
