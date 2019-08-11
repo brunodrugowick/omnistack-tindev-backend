@@ -39,7 +39,6 @@ httpServer.use((request, response, next) => {
 httpServer.use(express.json());
 httpServer.use(cors());
 httpServer.use(routes);
-httpServer.get('/loggedUsers', (request, response) => {return response.json(connectedUsers)});
 httpServer.get('/', (req, res) => {return res.json({ message: `John is a man of focus... are you, my friend, a man of focus?`})});
 
 server.listen(process.env.PORT || 3333, function(){
