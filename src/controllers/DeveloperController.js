@@ -29,7 +29,8 @@ module.exports = {
         return res.json(users);
     },
     async store(req, res) {
-        const { username } = req.body;
+        var { username } = req.body;
+        username = username.trim();
 
         const userExists = await Developer.findOne({ user: username});
 
