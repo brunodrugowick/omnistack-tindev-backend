@@ -1,0 +1,126 @@
+<html>
+<head>
+  <title>Tindev Control Panel</title>
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" 
+  integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" 
+  crossorigin="anonymous">
+  <!-- Vue.js development version, includes helpful console warnings -->
+  <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+  <!-- Axios -->
+  <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+</head>
+<body>
+  <div id="controlPanelApp" style="margin:100px;">
+    <div id="container">
+      <nav class="navbar navbar-expand-md navbar-dark bg-dark">
+        <a class="navbar-brand" href="#">Tindev App</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+       
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul class="navbar-nav mr-auto">
+            <li class="nav-item active">
+              <a class="nav-link" href="#">Control Panel</a>
+            </li>
+          </ul>
+        </div>
+      </nav>
+    </div>
+    <div class="jumbotron"  style="padding:40px;">
+      <h1>Operations</h1>
+      <p>Here you can perform some administrative operations.</p>
+      <p>
+          This is a static page generated on the NodeJS backend and sent to the browser.
+          The operations are performed using VueJS.
+      </p>
+    </div>
+    <div id="user-list">
+      <div>
+          <h2>Logged Users
+              <p v-on:click="getLoggedUsers" class="btn btn-primary float-right">Refresh</p>
+          </h2>
+      </div>
+      <table v-if="loggedUsers != null" class="table table-striped">
+        <thead class="thead-dark">
+          <tr>
+            <th>Logged User ID</th>
+            <th>User Socket ID</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr v-for="(value, key) in loggedUsers">
+            <td>{{ key }}</td>
+            <td>{{ value }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div id="message-list">
+      <div>
+        <h2>Operations
+          <p v-on:click="resetLikes" class="btn btn-primary float-right">Reset Likes</p>
+        </h2>
+      </div>
+      <table v-if="messages != null" class="table table-striped">
+          <thead class="thead-dark">
+              <tr>
+                  <th>Timestamp</th>
+                  <th>Message</th>
+              </tr>
+          </thead>
+          <tbody>
+              <tr v-for="message in messages">
+                  <td>{{ message.date }}</td>
+                  <td>{{ message.message }}</td>
+              </tr>
+          </tbody>
+      </table>
+    </div>
+  </div>
+  <!-- Actual Vue.js script -->
+  <script>
+    var app = new Vue({
+        el: '#controlPanelApp',
+        data() {
+            return {
+                messages: [],
+                loggedUsers: [],
+            }
+        },
+        mounted(){
+            axios
+                .get("/controlPanel/loggedUsers")
+                .then(response => (this.loggedUsers = response.data));
+        },
+        methods: {
+            resetLikes: function(event) {
+                axios
+                    .get("/controlPanel/resetLikes")
+                    .then(response => (this.messages.push(response.data)));
+            },
+            getLoggedUsers: function(event) {
+                axios
+                    .get("/controlPanel/loggedUsers")
+                    .then(response => (this.loggedUsers = response.data));
+            },
+        },
+    })
+</script> 
+<!-- Optional JavaScript -->
+<!-- jQuery first, then Popper.js, then Bootstrap JS -->
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" 
+    integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" 
+    crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" 
+    integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" 
+    crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" 
+    integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" 
+    crossorigin="anonymous"></script>
+</body>
+</html>

@@ -1,8 +1,9 @@
 const Developer = require('../models/Developer');
+const moment = require('moment');
 
 module.exports = {
     async getLoggedUsers(request, response) {
-        return response.json(request.connectedUsers);
+        return response.status(200).json(request.connectedUsers);
     },
 
     async resetLikes(request, response) {
@@ -16,7 +17,10 @@ module.exports = {
         });
 
         request.webSocketServer.emit('app_restart');
-        
-        return response.json({message: "done"});
+
+        return response.status(200).json({
+            date: moment().format('YYYY-MM-DD HH:mm:ss'),
+            message: "Likes and dislikes reseted."
+        });
     }
 }
