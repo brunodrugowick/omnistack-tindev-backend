@@ -70,6 +70,12 @@ Must include a `user` on the request header with a valid user id (_id on MongoDB
 
 Dislikes the user specified on `devId`.
 
+### GET on /controlPanel
+
+Returns a static HTML page with some admnistrative operations performed via [Vue.js](https://vuejs.org).
+
+That's cool, isn't? I think it is!
+
 ## Environment Variables for the application to work properly
 
 For development, I recommend the use of `dotenv` package, then you can have those env vars set on a .env file. For production, please, make sure to use at least the required env vars below:
