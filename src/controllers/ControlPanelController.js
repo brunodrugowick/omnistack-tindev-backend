@@ -1,4 +1,5 @@
 const Developer = require('../models/Developer');
+const ControlPanelOperations = require('../models/ControlPanelOperations');
 const moment = require('moment');
 
 module.exports = {
@@ -18,9 +19,19 @@ module.exports = {
 
         request.webSocketServer.emit('app_restart');
 
-        return response.status(200).json({
-            date: moment().format('YYYY-MM-DD HH:mm:ss'),
-            message: "Likes and dislikes reseted."
-        });
+        await ControlPanelOperations.create({
+            message: "Likes and dislikes reset.",
+            author: "Anonymous"
+        })
+            .then((document) => response.status(200).json(document))
+            .catch((reason) => console.log("Reset operation failed " + reason));
+    },
+
+    async getOperations(request, response) {
+
+        const operations = await ControlPanelOperations.paginate({},
+            { page: 1, limit: 99, sort: { "createdAt": "desc" } })
+
+        return response.status(200).json(operations);
     }
 }

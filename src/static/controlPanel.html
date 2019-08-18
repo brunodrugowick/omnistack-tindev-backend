@@ -69,13 +69,15 @@
       <table v-if="messages != null" class="table table-striped">
           <thead class="thead-dark">
               <tr>
+                  <th>Author</th>
                   <th>Timestamp</th>
                   <th>Message</th>
               </tr>
           </thead>
           <tbody>
               <tr v-for="message in messages">
-                  <td>{{ message.date }}</td>
+                  <td>{{ message.author }}</td>
+                  <td>{{ message.createdAt }}</td>
                   <td>{{ message.message }}</td>
               </tr>
           </tbody>
@@ -93,21 +95,25 @@
             }
         },
         mounted(){
-            axios
-                .get("/controlPanel/loggedUsers")
-                .then(response => (this.loggedUsers = response.data));
+          this.getLoggedUsers();
+          this.getOperations();
         },
         methods: {
-            resetLikes: function(event) {
-                axios
-                    .get("/controlPanel/resetLikes")
-                    .then(response => (this.messages.push(response.data)));
-            },
-            getLoggedUsers: function(event) {
-                axios
-                    .get("/controlPanel/loggedUsers")
-                    .then(response => (this.loggedUsers = response.data));
-            },
+          getOperations: function(event) {
+            axios
+              .get("/controlPanel/getOperations")
+              .then(response => (this.messages = response.data.docs));
+          },
+          resetLikes: function(event) {
+            axios
+              .get("/controlPanel/resetLikes")
+              .then(response => (this.messages.unshift(response.data)));
+          },
+          getLoggedUsers: function(event) {
+            axios
+              .get("/controlPanel/loggedUsers")
+              .then(response => (this.loggedUsers = response.data));
+          },
         },
     })
 </script> 

@@ -19,5 +19,6 @@ routes.get('/controlPanel', (request, response) => {
 });
 routes.get('/controlPanel/loggedUsers', controlPanelController.getLoggedUsers);
 routes.get('/controlPanel/resetLikes', controlPanelController.resetLikes);
+routes.get('/controlPanel/getOperations', controlPanelController.getOperations);
 
 module.exports = routes;
